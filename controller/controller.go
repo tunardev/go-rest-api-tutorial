@@ -49,13 +49,3 @@ func (c Controller) DeleteUser(ctx *fiber.Ctx) error {
 	return ctx.SendString("Success")
 }
 
-func (c Controller) UpdateUser(ctx *fiber.Ctx) error {
-	user := new(models.User)
-	if err := ctx.BodyParser(user); err != nil {
-		return ctx.Status(http.StatusUnprocessableEntity).JSON(fiber.Map{
-            "message": err.Error(),
-		})
-	}
-	c.Database.Model(&user).Updates(user)
-	return ctx.SendString("Success")
-}
